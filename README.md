@@ -8,23 +8,26 @@ The [Model Context Protocol](https://modelcontextprotocol.io/) servers on my mac
 
 ## Install
 
+### Prepare the environment
 ```shell
 gh repo clone goofansu/mcp-servers
 cd mcp-servers
 uv venv
 uv sync
+source .venv/bin/activate.fish # depending on your shell
 ```
 
-### Install servers
+### Install MCP servers
 ```shell
-uv install weather.py
+mcp install weather.py
 ```
 
 Restart Claude Desktop app and you'll see tools.
 
-### Inspect servers
+### Inspect MCP servers
+If there is any error, you can debug with the MCP Inspector by running:
 ```
-uv dev weather.py
+mcp dev weather.py
 ```
 
 ## Nix user
