@@ -1,6 +1,6 @@
 from typing import Any
 import httpx
-from mcp.server.fastmcp import FastMCP, Context
+from mcp.server.fastmcp import FastMCP
 
 # Initialize FastMCP server
 mcp = FastMCP("weather")
@@ -9,12 +9,10 @@ mcp = FastMCP("weather")
 NWS_API_BASE = "https://api.weather.gov"
 USER_AGENT = "weather-app/1.0"
 
+
 async def make_nws_request(url: str) -> dict[str, Any] | None:
     """Make a request to the NWS API with proper error handling."""
-    headers = {
-        "User-Agent": USER_AGENT,
-        "Accept": "application/geo+json"
-    }
+    headers = {"User-Agent": USER_AGENT, "Accept": "application/geo+json"}
     async with httpx.AsyncClient() as client:
         try:
             response = await client.get(url, headers=headers, timeout=30.0)
@@ -22,6 +20,7 @@ async def make_nws_request(url: str) -> dict[str, Any] | None:
             return response.json()
         except Exception:
             return None
+
 
 def format_alert(feature: dict) -> str:
     """Format an alert feature into a readable string."""
@@ -33,6 +32,7 @@ Severity: {props.get('severity', 'Unknown')}
 Description: {props.get('description', 'No description available')}
 Instructions: {props.get('instruction', 'No specific instructions provided')}
 """
+
 
 @mcp.tool()
 async def get_alerts(state: str) -> str:
@@ -52,6 +52,7 @@ async def get_alerts(state: str) -> str:
 
     alerts = [format_alert(feature) for feature in data["features"]]
     return "\n---\n".join(alerts)
+
 
 @mcp.tool()
 async def get_forecast(latitude: float, longitude: float) -> str:
@@ -88,6 +89,7 @@ Forecast: {period['detailedForecast']}
         forecasts.append(forecast)
 
     return "\n---\n".join(forecasts)
+
 
 @mcp.prompt()
 def prompt_get_alerts(state: str) -> str:
