@@ -15,17 +15,41 @@ uv venv
 uv sync
 ```
 
-### Inspect servers
-```
-uv dev weather.py
-```
-
 ### Install servers
 ```shell
 uv install weather.py
 ```
 
 Restart Claude Desktop app and you'll see tools.
+
+### Inspect servers
+```
+uv dev weather.py
+```
+
+## Nix user
+If `uv` is installed using Nix, you'll make changes in `~/Library/Application Support/Claude/claude_desktop_config.json`:
+
+```diff
+{
+  "mcpServers": {
+    "weather": {
+-     "command": "uv",
++     "command": "/etc/profiles/per-user/james/bin/uv",
+      "args": [
++       "--directory",
++       "/Users/james/src/mcp-servers",
+        "run",
+        "--with",
+        "mcp",
+        "mcp",
+        "run",
+        "/Users/james/src/mcp-servers/weather.py"
+      ]
+    }
+  }
+}
+```
 
 ## References
 - https://modelcontextprotocol.io/quickstart/server
