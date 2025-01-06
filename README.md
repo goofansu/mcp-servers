@@ -22,13 +22,20 @@ source .venv/bin/activate.fish # depending on your shell
 mcp install weather.py
 ```
 
-Restart Claude Desktop app and you'll see tools.
+Restart the Claude Desktop app and you'll find tools.
 
 ### Inspect MCP servers
-If there is any error, you can debug with the MCP Inspector by running:
+If Claude Desktop reports errors about MCP servers, you can debug with the MCP Inspector by running:
 ```
 mcp dev weather.py
 ```
+
+## Usage
+- Select tools from "Available MCP Tools"
+![tools](./screenshots/tools.png)
+
+- Select prompts by "Attach from MCP"
+![prompts](./screenshots/prompts.png)
 
 ## Nix user
 If `uv` is installed using Nix, you'll make changes in `~/Library/Application Support/Claude/claude_desktop_config.json`:
